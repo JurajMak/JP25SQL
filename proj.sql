@@ -34,26 +34,28 @@ create table ira(
 
 
 create table primka(
-    ura_id int,
+    primka_id int not null primary key auto_increment,
     cijena decimal(18,2),
-    roba int not null,
-    primary key (ura_id),
-    foreign key (ura_id) references ura(ura_id)
+    kolicina int,
+    ura int not null,
+    roba int not null
+
 );
 
 
 create table otpremnica(
     otp_id int not null primary key auto_increment,
     cijena decimal(18,2),
+    kolicina int,
     ira int not null,
     roba int not null
 );
 
 create table partner(
     part_id int not null primary key auto_increment,
+    naziv varchar(50),
     adresa varchar(50),
-    oib char(11),
-    naziv varchar(50)
+    oib char(11)
 );
 
 alter table ira add foreign key (partner) references partner(part_id);
@@ -61,5 +63,5 @@ alter table ura add foreign key (partner) references partner(part_id);
 alter table otpremnica add foreign key(ira) references ira(ira_id);
 alter table primka add foreign key(roba) references roba(roba_id);
 alter table otpremnica add foreign key(roba) references roba(roba_id);
-
+alter table primka add foreign key(ura) references ura(ura_id);
 
